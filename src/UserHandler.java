@@ -8,7 +8,7 @@ public class UserHandler {
     private LevelUp levelUp = new LevelUp();
     private DailyChallengeManager dcm = new DailyChallengeManager();
 
-    public boolean Login(String username,String password){
+    public boolean Login(String username,String password){  // Method to handle user login
         DB.getInstance();
         User user = DB.getUserByUsername(username);
         DB.closeConnection();
@@ -23,7 +23,7 @@ public class UserHandler {
         return false;
     }
 
-    public boolean Register(String username,String password){
+    public boolean Register(String username,String password){ // Method to register a new user
         DB.getInstance();
         if(DB.getUserByUsername(username)==null){
         if(DB.InsertUser(username,password)){
@@ -35,7 +35,7 @@ public class UserHandler {
         return false;
     }
 
-    public void SetSession(User user) {
+    public void SetSession(User user) { // Method to set the current user session
         try (FileWriter fileWriter = new FileWriter(SessionFilePath)) {
             String json = userToJson(user);
             fileWriter.write(json);
@@ -44,7 +44,7 @@ public class UserHandler {
         }
     }
 
-    public void DeleteSession() {
+    public void DeleteSession() { // Method to delete the current user session
         try (PrintWriter writer = new PrintWriter(SessionFilePath)){
             writer.print("");
             writer.close();
@@ -53,7 +53,7 @@ public class UserHandler {
         }
     }
 
-    public User GetSession() {
+    public User GetSession() { // Method to retrieve the current user session
         try (BufferedReader reader = new BufferedReader(new FileReader(SessionFilePath))) {
             StringBuilder jsonString = new StringBuilder();
             String line;
@@ -77,7 +77,7 @@ public class UserHandler {
         }
     }
 
-    public List<User> GetListOfUsers() {
+    public List<User> GetListOfUsers() { // Method to retrieve a list of users sorted by level and completed levels
         DB.getInstance();
         List<User> users = DB.getAllUsers();
         users.sort((Comparator.comparing(User::getLevel).reversed().thenComparing(User::getLevels).reversed()).reversed()); // found a way to sort somewhere on reddit(can be done easier but i am lazy)
@@ -85,7 +85,7 @@ public class UserHandler {
         return users;
     }
 
-    public void SetNewPassword(String username,String password){
+    public void SetNewPassword(String username,String password){  // Method to update the password of a user
         if(!(password.equals(""))){
         DB.getInstance();
         User UpdatedUser;
@@ -96,7 +96,7 @@ public class UserHandler {
         }
     }
 
-    public void LevelUp(String username,int exp){
+    public void LevelUp(String username,int exp){ // Method to handle user level progression
         DB.getInstance();
         int newExp;
         User updatedUser;
@@ -145,7 +145,7 @@ public class UserHandler {
         DB.closeConnection();
     }
 
-    public void AddCompletion(String difficulty,String username){
+    public void AddCompletion(String difficulty,String username){  // Method to add completion for a specific difficulty level
         DB.getInstance();
         User newUser = DB.getUserByUsername(username);
         switch (difficulty) {
@@ -173,7 +173,8 @@ public class UserHandler {
         DB.closeConnection();
     }
 
-    private String userToJson(User user) { // my import from com.google.Gson didnt work and even jsonb didnt work so i did it manually
+    private String userToJson(User user) {  // Method to convert User object to JSON string 
+        // () my import from com.google.Gson didnt work and even jsonb didnt work so i did it manually)
         StringBuilder json = new StringBuilder();
         json.append("{");
         json.append("\"id\":").append(user.getId()).append(",");
@@ -190,7 +191,8 @@ public class UserHandler {
         return json.toString();
     }
 
-    private User jsonToUser(String json) { // my import from com.google.Gson didnt work and even jsonb didnt work so i did it manually
+    private User jsonToUser(String json) { // Method to convert JSON string to User object
+        // (my import from com.google.Gson didnt work and even jsonb didnt work so i did it manually)
         String[] parts = json.substring(1, json.length() - 1).split(",");
         int id = Integer.parseInt(parts[0].split(":")[1]);
         String username = parts[1].split(":")[1].replace("\"", "");

@@ -21,11 +21,11 @@ public class Login implements ActionListener {
     private JButton loginc = new JButton("Continue");
     private JLabel wel_label = new JLabel("Welcome!");
 
-    public Login() {
+    public Login() { // Constructor to initialize UI
         LoginUI();
     }
 
-    private void LoginUI() {
+    private void LoginUI() {  // Method to set up the login UI
         login.setBackground(Color.GRAY);
         login.setForeground(Color.WHITE);
         login.setFocusable(false);
@@ -104,7 +104,7 @@ public class Login implements ActionListener {
         frame2.setLocationRelativeTo(null);
     }
 
-    private void login() {
+    private void login() {  // Method to handle login
         String userValue = textField1.getText();
         String passValue = textField2.getText();
         if (userHandler.Login(userValue, passValue) && !userValue.equals("") && !passValue.equals(""))
@@ -117,14 +117,14 @@ public class Login implements ActionListener {
         }
     }
 
-    private void end() {
+    private void end() { // Method to end login and open main menu
         frame.dispose();
         Menu menu = new Menu();
         menu.MenuUI();
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e) { // ActionListener implementation for button clicks
         Object source = e.getSource();
         if (source == login) {
             login();
@@ -139,7 +139,7 @@ public class Login implements ActionListener {
         }
     }
 
-    public void register() {
+    public void register() { // Method to handle registration
         String userValue1 = textField3.getText();
         String passValue1 = textField4.getText();
         if (userHandler.Register(userValue1, passValue1) && !userValue1.equals("") && !passValue1.equals("")) {
@@ -151,12 +151,12 @@ public class Login implements ActionListener {
         }
     }
 
-    public void registration() {
+    public void registration() { // Method to switch to registration frame
         frame.setVisible(false);
         frame2.setVisible(true);
     }
 
-    public void registered() {
+    public void registered() {   // Method to switch to login frame
         frame.setVisible(true);
         frame2.setVisible(false);
     }

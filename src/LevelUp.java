@@ -11,7 +11,7 @@ public class LevelUp implements ActionListener{
     private JLabel label;
     private JButton button = new JButton("Continue");
 
-    public void LevelUpUI(User user){
+    public void LevelUpUI(User user){ // Method to initialize and display the level up UI
 
         label =  new JLabel("Congratulations on leveling up to level "+user.getLevel());
         panel.setLayout(new GridLayout(2, 1));
@@ -31,7 +31,7 @@ public class LevelUp implements ActionListener{
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e) { // ActionListener implementation for button click
         frame.dispose();
     }
 

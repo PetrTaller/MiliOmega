@@ -10,7 +10,7 @@ public class CollectReward implements ActionListener{
     private JLabel label;
     private JButton button = new JButton("Continue");
 
-    public void collectRewardUI(int amount){
+    public void collectRewardUI(int amount){ // Constructor to set up the GUI
         
         label = new JLabel("Congratulations on completing a daily challange, reward: "+amount);
         button.setFont(new Font("Arial", Font.BOLD, 16));
@@ -30,7 +30,7 @@ public class CollectReward implements ActionListener{
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e) { // Action event handler for the button
         frame.dispose();
     }
 

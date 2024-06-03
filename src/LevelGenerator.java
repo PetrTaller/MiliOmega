@@ -6,7 +6,7 @@ public class LevelGenerator {
     private Calc calc = new Calc();
     private double answer;  
 
-    public String EasyGenerate() {
+    public String EasyGenerate() { // Generates a easy level math example
         double a = GenerateRandomNum(100, 1);
         double b = GenerateRandomNum(100, 1);
         double c = GenerateRandomNum(100, a);
@@ -33,7 +33,7 @@ public class LevelGenerator {
         return example;
     }
 
-    public String NormalGenerate(){
+    public String NormalGenerate(){ // Generates a normal level math example
         double a = GenerateRandomNum(100, 1);
         double b = GenerateRandomNum(100, 1);
         double c = GenerateRandomNum(100, a);
@@ -62,7 +62,7 @@ public class LevelGenerator {
         return example;
     }
 
-    public String HardGenerate(){
+    public String HardGenerate(){ // Generates a Hard level math example
         double a = GenerateRandomNum(100, 1);
         double b = GenerateRandomNum(100, 1);
         double c = GenerateRandomNum(100, a);
@@ -91,7 +91,7 @@ public class LevelGenerator {
         return example;
     }
     
-    public String ImpossibleGenerate(){
+    public String ImpossibleGenerate(){ // Generates an impossible level math example
         double a = GenerateRandomNum(100, 2);
         double b = GenerateRandomNum(100, 1);
         double c = GenerateRandomNum(50, 2);
@@ -130,7 +130,7 @@ public class LevelGenerator {
         return example;
     }
 
-    public double GenerateRandomNum(int range, double divisible) {
+    public double GenerateRandomNum(int range, double divisible) { // Generates a random number within a range that is divisible by a number
         if (range <= 0) {
             throw new IllegalArgumentException("Range must be greater than 0");
         }
@@ -145,11 +145,11 @@ public class LevelGenerator {
         return num;
     }
 
-    public double getAnswer() {
+    public double getAnswer() {  // Returns the answer to the generated example
         return answer;
     }
 
-    public void setAnswer(double answer) {
+    public void setAnswer(double answer) { // Sets the answer to the generated example
         this.answer = answer;
     }
 }

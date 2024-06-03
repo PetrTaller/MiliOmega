@@ -8,7 +8,7 @@ public class DailyChallenge {
     private String difficulty;
     CollectReward collectReward = new CollectReward();
 
-    public DailyChallenge(String description, int requiredProgress, int reward,String difficulty,int progress,boolean completed) {
+    public DailyChallenge(String description, int requiredProgress, int reward,String difficulty,int progress,boolean completed) {  // Constructor to initialize a daily challenge
         this.description = description;
         this.completed = completed;
         this.progress = progress;
@@ -17,6 +17,7 @@ public class DailyChallenge {
         this.difficulty = difficulty;
     }
 
+// Getters and setters
     public String getDescription() {
         return description;
     }
@@ -40,9 +41,9 @@ public class DailyChallenge {
     public String getDifficulty() {
         return difficulty;
     }
+//
 
-
-    public void updateProgress(int amount) {
+    public void updateProgress(int amount) { // Updates the progress of the challenge
         if (!completed) {
             this.progress += amount;
             if (this.progress >= this.requiredProgress) {
@@ -53,13 +54,13 @@ public class DailyChallenge {
         }
     }
 
-    private void Reward() {
+    private void Reward() { // Reward the player
         userHandler.LevelUp(userHandler.GetSession().getUsername(),reward);
         collectReward.collectRewardUI(reward);
     }
 
     @Override
-    public String toString() {
+    public String toString() { // Return String
         String status;
         if(completed){
             status = "Completed";

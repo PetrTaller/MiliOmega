@@ -10,7 +10,7 @@ public class User {
     private int impossible;
     private int levels;
 
-    public User(int id, String username, String password, int level, int experience, int easy, int normal, int hard, int impossible, int levels) {
+    public User(int id, String username, String password, int level, int experience, int easy, int normal, int hard, int impossible, int levels) { // constructor
         this.id = id;
         this.username = username;
         this.password = password;
@@ -104,7 +104,7 @@ public class User {
     }
 
     @Override
-    public String toString() {
+    public String toString() { // Returns a string with values
         return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +

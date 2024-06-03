@@ -10,11 +10,12 @@ public class DailyChallengeManager implements Serializable{
     private static final String lastDailyPath = "src/LastDaily.txt";
     private static final String challangesPath = "src/Challanges.txt";
 
-    public void refreshChallenges() {
+    public void refreshChallenges() { // Refreshes challanges if last refresh was on a different day
         currentDate = getCurrentDate();
         lastDate = readFile(lastDailyPath);
         if (lastDate == null || !(currentDate.equals(lastDate))) {
             challenges = generateNewChallenges();
+            writeChallengesToFile(challangesPath, challenges);
         } else if (challenges == null) {
             challenges = readChallengesFromFile(challangesPath);
             if (challenges == null) {
@@ -25,7 +26,7 @@ public class DailyChallengeManager implements Serializable{
         writeFile(lastDailyPath, currentDate);
     }
 
-    private List<DailyChallenge> generateNewChallenges() {
+    private List<DailyChallenge> generateNewChallenges() { // Selects new challanges at random and mixes them
         List<DailyChallenge> allChallenges = new ArrayList<>();
         allChallenges.add(new DailyChallenge("Complete the hard challenge 5 times", 5, 200, "hard",0,false));
         allChallenges.add(new DailyChallenge("Complete the normal challenge 5 times", 5, 100, "normal",0,false));
@@ -38,11 +39,11 @@ public class DailyChallengeManager implements Serializable{
         return new ArrayList<>(allChallenges.subList(0, 3));
     }
 
-    public List<DailyChallenge> getChallenges() {
+    public List<DailyChallenge> getChallenges() { // Retrieves the list of challenges from the file
         return readChallengesFromFile(challangesPath);
     }
 
-    public void updateChallengeProgress(String difficulty, int amount) {
+    public void updateChallengeProgress(String difficulty, int amount) { //Updates the progress of a challenge based on its difficulty
         if (challenges == null) {
             challenges = readChallengesFromFile(challangesPath);
             if (challenges == null) {
@@ -58,13 +59,13 @@ public class DailyChallengeManager implements Serializable{
         }
     }
 
-    private static String getCurrentDate() {
+    private static String getCurrentDate() { // Returns the current date as a string
         Date currentDate = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         return formatter.format(currentDate);
     }
 
-    public static String readFile(String filePath) {
+    public static String readFile(String filePath) { // Reads the content of a file and returns it as a string
         StringBuilder content = new StringBuilder();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
@@ -78,7 +79,7 @@ public class DailyChallengeManager implements Serializable{
         return content.toString();
     }
 
-    public static void writeFile(String filePath, String content) {
+    public static void writeFile(String filePath, String content) { // Writes content to a file
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             writer.write(content);
         } catch (IOException e) {
@@ -87,7 +88,7 @@ public class DailyChallengeManager implements Serializable{
     }
 
 //*import lib */
-    public String challengeToJson(DailyChallenge challenge) {
+    public String challengeToJson(DailyChallenge challenge) { // Converts a DailyChallenge object to a JSON string
         StringBuilder json = new StringBuilder();
         json.append("{");
         json.append("\"description\":\"").append(challenge.getDescription()).append("\",");
@@ -100,7 +101,7 @@ public class DailyChallengeManager implements Serializable{
         return json.toString();
     }
 
-    public DailyChallenge jsonToChallenge(String json) {
+    public DailyChallenge jsonToChallenge(String json) { // Converts a JSON string to a DailyChallenge object
         String[] parts = json.substring(1, json.length() - 1).split(",");
         String description = parts[0].split(":")[1].replace("\"", "").trim();
         boolean completed = Boolean.parseBoolean(parts[1].split(":")[1].trim());
@@ -111,7 +112,7 @@ public class DailyChallengeManager implements Serializable{
         return new DailyChallenge(description, requiredProgress, reward, difficulty,progress,completed);
     }
 
-    public String challengesToJson(List<DailyChallenge> challenges) {
+    public String challengesToJson(List<DailyChallenge> challenges) { // Converts a list of DailyChallenge objects to a JSON string
         StringBuilder json = new StringBuilder();
         json.append("[");
         for (int i = 0; i < challenges.size(); i++) {
@@ -124,7 +125,7 @@ public class DailyChallengeManager implements Serializable{
         return json.toString();
     }
 
-    public List<DailyChallenge> jsonToChallenges(String json) {
+    public List<DailyChallenge> jsonToChallenges(String json) { // Converts a JSON string to a list of DailyChallenge objects
         List<DailyChallenge> challenges = new ArrayList<>();
         json = json.trim();
         if (json.isEmpty() || json.equals("[]")) {
@@ -144,7 +145,7 @@ public class DailyChallengeManager implements Serializable{
         return challenges;
     }
 
-    public void writeChallengesToFile(String filePath, List<DailyChallenge> challenges) {
+    public void writeChallengesToFile(String filePath, List<DailyChallenge> challenges) { // Writes a list of DailyChallenge objects to a file
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             writer.write(challengesToJson(challenges));
         } catch (IOException e) {
@@ -152,7 +153,7 @@ public class DailyChallengeManager implements Serializable{
         }
     }
 
-    public List<DailyChallenge> readChallengesFromFile(String filePath) {
+    public List<DailyChallenge> readChallengesFromFile(String filePath) { // Reads a list of DailyChallenge objects from a file
         StringBuilder json = new StringBuilder();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;

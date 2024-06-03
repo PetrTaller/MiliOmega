@@ -1,6 +1,6 @@
 public class UIHandler { 
     
-    public void start(){
+    public void start(){ // Starts the interface of the app
 
         UserHandler userHandler = new UserHandler();
         if(userHandler.GetSession()==null){

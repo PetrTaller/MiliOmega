@@ -7,7 +7,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
+
 public class Menu implements ActionListener {
+
     private User session;
     private DailyChallengeManager dcm = new DailyChallengeManager();
     private UserHandler userHandler = new UserHandler();
@@ -44,7 +46,8 @@ public class Menu implements ActionListener {
     private JTextArea helpText = new JTextArea();
     String filePath = "src/help.txt";
     String fileContent = readFile(filePath);
-    public void MenuUI() {
+
+    public void MenuUI() { // Method to initialize the menu UI
         dcm.refreshChallenges();
         helpText.setText(fileContent);
         settingsFrame.setSize(300, 200);
@@ -79,10 +82,12 @@ public class Menu implements ActionListener {
         helpText.setFocusable(false);
         helpFrame.add(helpText);
     }
-    private JButton createButton(String text, Color background) {
+
+    private JButton createButton(String text, Color background) { // Helper method to create colored buttons
         return createButton(text, background, Color.BLACK);
     }
-    private JButton createButton(String text, Color background, Color foreground) {
+
+    private JButton createButton(String text, Color background, Color foreground) { // Helper method to create colored buttons with custom foreground color
         JButton button = new JButton(text);
         button.setBackground(background);
         button.setForeground(foreground);
@@ -91,15 +96,17 @@ public class Menu implements ActionListener {
         button.addActionListener(this);
         return button;
     }
-    private JButton createUniformButton(String text) {
+
+    private JButton createUniformButton(String text) { // Helper method to create uniform buttons
         JButton button = new JButton(text);
         button.setFont(new Font("Arial", Font.BOLD, 16));
         button.setFocusPainted(false);
         button.addActionListener(this);
         return button;
     }
+
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e) { // Action listener for button clicks
         if (e.getSource() == easyButton) {
             levelMenu.EasyStart();
         } else if (e.getSource() == normalButton) {
@@ -142,7 +149,8 @@ public class Menu implements ActionListener {
             helpFrame.setVisible(true);
         }
     }
-    private void toggleTheme() {
+
+    private void toggleTheme() { // Method to toggle between light and dark themes
         isDarkMode = !isDarkMode;
         if (isDarkMode) {
             frame.getContentPane().setBackground(Color.DARK_GRAY);
@@ -176,7 +184,8 @@ public class Menu implements ActionListener {
             }
         }
     }
-    private void SetProfile(){
+
+    private void SetProfile(){ // Method to set up the user profile panel
         session = userHandler.GetSession();
         profileLabel = new JLabel(session.getUsername()+":   Level: "+session.getLevel());
         experienceLabel = new JLabel("Experience: " + session.getExperience());
@@ -217,7 +226,8 @@ public class Menu implements ActionListener {
         toggleTheme();
         toggleTheme();
     }
-    private void SetLeaderboard(){
+
+    private void SetLeaderboard(){  // Method to set up the leaderboard panel
         session = userHandler.GetSession();
         leaderboardFrame.setSize(400, 600);
         leaderboardFrame.setLayout(new BorderLayout());
@@ -236,7 +246,8 @@ public class Menu implements ActionListener {
         toggleTheme();
         toggleTheme();
     }
-    private void SetDailyChallanges(){
+
+    private void SetDailyChallanges(){ // Method to set up the daily challenges panel
         dcm.refreshChallenges();
         dailyPanel.setLayout(new GridLayout(3, 1));
         List<DailyChallenge> dailyChallenges = dcm.getChallenges();
@@ -253,7 +264,8 @@ public class Menu implements ActionListener {
         dailyFrame.setLayout(new FlowLayout());
         dailyFrame.setLocationRelativeTo(null);
     }
-    public static String readFile(String filePath) {
+
+    public static String readFile(String filePath) { // Method to read file content
         StringBuilder content = new StringBuilder();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;

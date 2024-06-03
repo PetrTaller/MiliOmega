@@ -30,11 +30,11 @@ public class LevelMenu implements ActionListener{
     private JTextField impossibleAnswer;
     private JButton impossibleSubmitButton;
 
-    public LevelMenu(){
+    public LevelMenu(){ // Constructor
         LevelUI();
     }
 
-    private void LevelUI() {
+    private void LevelUI() {  // Method to initialize UI components
 
         easyLabel = new JLabel();
         normalLabel = new JLabel();
@@ -83,7 +83,7 @@ public class LevelMenu implements ActionListener{
         impossiblePanel.add(impossibleSubmitButton);
     }
 
-    public void EasyStart(){
+    public void EasyStart(){ // Method to start easy level
         frame.remove(impossiblePanel);
         frame.remove(normalPanel);
         frame.remove(hardPanel);
@@ -95,7 +95,7 @@ public class LevelMenu implements ActionListener{
 
     }
 
-    public void NormalStart(){
+    public void NormalStart(){ // Method to normal easy level
         frame.remove(impossiblePanel);
         frame.remove(easyPanel);
         frame.remove(hardPanel);
@@ -107,7 +107,7 @@ public class LevelMenu implements ActionListener{
 
     }
 
-    public void HardStart(){
+    public void HardStart(){ // Method to start the hard level
         frame.remove(impossiblePanel);
         frame.remove(normalPanel);
         frame.remove(easyPanel);
@@ -119,7 +119,7 @@ public class LevelMenu implements ActionListener{
 
     }
 
-    public void ImpossibleStart(){
+    public void ImpossibleStart(){ // Method to start the impossible level
         frame.remove(easyPanel);
         frame.remove(hardPanel);
         frame.remove(normalPanel);
@@ -131,7 +131,7 @@ public class LevelMenu implements ActionListener{
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e) { // Action listener for button clicks
         if (e.getSource() == easySubmitButton) {
             String correctAnswer = deleteZero(levelGenerator.getAnswer());
             if(correctAnswer.equals((easyAnswer.getText())) && !easyAnswer.getText().equals("")){
@@ -183,7 +183,7 @@ public class LevelMenu implements ActionListener{
         }
     }
 
-    public String deleteZero(double x){
+    public String deleteZero(double x){ // Method to format double answer as string and deleting ".0"
         String stringResult = String.valueOf(x);
         char lastchar1 = stringResult.charAt(stringResult.length()-1);
         char seclastchar1 = stringResult.charAt(stringResult.length()-2);
